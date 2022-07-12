@@ -9,6 +9,7 @@ const TodoCard = ({ onSubmit }) => {
     const f = {
       id: Math.random() * 100,
       text: input,
+      isComplete: false,
     };
     onSubmit(f);
   };

@@ -6,13 +6,25 @@ const MainPage = () => {
   const [todos, setTodos] = useState([]);
 
   const deleteTodo = (todo) => {
-    console.log(todo);
     const item = todos.indexOf(todo);
     const newTodos = [...todos];
-    console.log(newTodos);
     newTodos.splice(item, 1);
-
     setTodos(newTodos);
+  };
+
+  const checkedTodo = (id) => {
+    let updatedTodos = todos.map((todo) => {
+      if (id === todo.id) {
+        todo.isComplete = !todo.isComplete;
+
+        // let index = todos.indexOf(todo);
+        // let ele = updatedTodos.splice(index, 1)[0];
+        // updatedTodos.splice(updatedTodos.length, 0, ele);
+        // console.log(updatedTodos);
+      }
+      return todo;
+    });
+    setTodos(updatedTodos);
   };
 
   const addTodo = (todo) => {
@@ -26,7 +38,7 @@ const MainPage = () => {
     <div>
       <h1>Add your tasks for today!</h1>
       <TodoCard onSubmit={addTodo} />
-      <TodoList todos={todos} onDelete={deleteTodo} />
+      <TodoList todos={todos} onDelete={deleteTodo} onCheck={checkedTodo} />
     </div>
   );
 };
