@@ -4,6 +4,12 @@ import TodoList from "./TodoList";
 
 const MainPage = () => {
   const [todos, setTodos] = useState([]);
+  const [edit, setEdit] = useState({
+    id: null,
+    value: "",
+  });
+
+  const editTodo = (value, id) => {};
 
   const deleteTodo = (todo) => {
     const item = todos.indexOf(todo);
@@ -38,7 +44,12 @@ const MainPage = () => {
     <div>
       <h1>Add your tasks for today!</h1>
       <TodoCard onSubmit={addTodo} />
-      <TodoList todos={todos} onDelete={deleteTodo} onCheck={checkedTodo} />
+      <TodoList
+        todos={todos}
+        onDelete={deleteTodo}
+        onCheck={checkedTodo}
+        onEdit={editTodo}
+      />
     </div>
   );
 };
