@@ -4,17 +4,18 @@ import TodoList from "./TodoList";
 
 const MainPage = () => {
   const [todos, setTodos] = useState([]);
-  const [edit, setEdit] = useState({
-    id: null,
-    value: "",
-  });
-
-  const editTodo = (value, id) => {};
 
   const deleteTodo = (todo) => {
     const item = todos.indexOf(todo);
     const newTodos = [...todos];
     newTodos.splice(item, 1);
+    setTodos(newTodos);
+  };
+
+  const editTodo = (todo, editedTodo) => {
+    const i = todos.indexOf(todo);
+    const newTodos = [...todos];
+    newTodos[i].text = editedTodo;
     setTodos(newTodos);
   };
 

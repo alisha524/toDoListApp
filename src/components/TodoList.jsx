@@ -1,22 +1,47 @@
 import React, { useState } from "react";
 
 const TodoList = (props) => {
-  const [editing, setEditing] = useState(false);
+  const [editing, setEditing] = useState("");
+  const [editedTodo, setEditedTodo] = useState("");
+
+  const updateEdit = (todo) => {
+    setEditedTodo(todo.text);
+    setEditing(todo.id);
+  };
+
+  const handleChange = (e) => {
+    setEditedTodo(e.target.value);
+  };
+
+  const handleSubmit = (e, todo) => {
+    e.preventDefault();
+    props.onEdit(todo, editedTodo);
+    setEditing("");
+  };
+
   return (
     <div>
       {props.todos.map((todo) => {
         return (
           <>
-            {editing ? (
+            {todo.id === editing ? (
               <>
-                <input type="text"></input>
-                <button
-                  onSubmit={() => {
-                    props.onEdit();
+                <form
+                  className="todoForm"
+                  onSubmit={(e) => {
+                    handleSubmit(e, todo);
                   }}
                 >
-                  Save this{" "}
-                </button>
+                  <input
+                    type="text"
+                    name="editTextbar"
+                    value={editedTodo}
+                    onChange={(e) => {
+                      handleChange(e);
+                    }}
+                  ></input>
+                  <button>Save this</button>
+                </form>
               </>
             ) : (
               <>
@@ -40,7 +65,7 @@ const TodoList = (props) => {
                 </button>
                 <button
                   onClick={() => {
-                    setEditing(true);
+                    updateEdit(todo);
                   }}
                 >
                   Edit Me
