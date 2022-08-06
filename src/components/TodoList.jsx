@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-
+import { Button, Checkbox } from "@mantine/core";
+import { Group, Box } from "@mantine/core";
 const TodoList = (props) => {
   const [editing, setEditing] = useState("");
   const [editedTodo, setEditedTodo] = useState("");
@@ -44,14 +45,13 @@ const TodoList = (props) => {
                 </form>
               </>
             ) : (
-              <>
-                <input
-                  type="checkbox"
+              <Group>
+                <Checkbox
                   id={todo.id}
                   onClick={() => {
                     props.onCheck(todo.id);
                   }}
-                ></input>
+                />{" "}
                 <h4
                   style={
                     todo.isComplete ? { textDecoration: "line-through" } : {}
@@ -59,18 +59,18 @@ const TodoList = (props) => {
                   key={todo.id}
                 >
                   {todo.text}
-                </h4>
-                <button onClick={() => props.onDelete(todo)}>
+                </h4>{" "}
+                <Button onClick={() => props.onDelete(todo)}>
                   Delete Task
-                </button>
-                <button
+                </Button>{" "}
+                <Button
                   onClick={() => {
                     updateEdit(todo);
                   }}
                 >
                   Edit Me
-                </button>
-              </>
+                </Button>
+              </Group>
             )}
           </>
         );

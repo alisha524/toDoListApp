@@ -1,6 +1,11 @@
 import React, { useState } from "react";
+import { ActionIcon, useMantineColorScheme } from "@mantine/core";
+import { IconSun, IconMoonStars } from "@tabler/Icons";
 import TodoCard from "./TodoCard";
 import TodoList from "./TodoList";
+
+const [colorScheme, toggleColorScheme] = useMantineColorScheme();
+const dark = colorScheme === "dark";
 
 const MainPage = () => {
   const [todos, setTodos] = useState([]);
@@ -23,11 +28,6 @@ const MainPage = () => {
     let updatedTodos = todos.map((todo) => {
       if (id === todo.id) {
         todo.isComplete = !todo.isComplete;
-
-        // let index = todos.indexOf(todo);
-        // let ele = updatedTodos.splice(index, 1)[0];
-        // updatedTodos.splice(updatedTodos.length, 0, ele);
-        // console.log(updatedTodos);
       }
       return todo;
     });
@@ -44,6 +44,14 @@ const MainPage = () => {
   return (
     <div>
       <h1>Add your tasks for today!</h1>
+      <ActionIcon
+        onClick={() => {
+          toggleColorScheme();
+          title = "Toggle color scheme";
+        }}
+      >
+        {dark ? <IconSun size={18} /> : <IconMoonStars size={18} />}
+      </ActionIcon>
       <TodoCard onSubmit={addTodo} />
       <TodoList
         todos={todos}
