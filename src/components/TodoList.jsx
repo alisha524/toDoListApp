@@ -1,10 +1,15 @@
-import React, { useState } from "react";
-import { Button, Checkbox } from "@mantine/core";
-import { Group, Box } from "@mantine/core";
+import React, { useState, useEffect } from "react";
+import { Button, Checkbox, Paper, useMantineColorScheme } from "@mantine/core";
+import { Group } from "@mantine/core";
 const TodoList = (props) => {
   const [editing, setEditing] = useState("");
   const [editedTodo, setEditedTodo] = useState("");
+  const { colorScheme, toggleColorScheme } = useMantineColorScheme();
+  const [dark, setDark] = useState(colorScheme === "dark");
 
+  useEffect(() => {
+    setDark(colorScheme === "dark");
+  }, [colorScheme]);
   const updateEdit = (todo) => {
     setEditedTodo(todo.text);
     setEditing(todo.id);
@@ -45,32 +50,37 @@ const TodoList = (props) => {
                 </form>
               </>
             ) : (
-              <Group>
-                <Checkbox
-                  id={todo.id}
-                  onClick={() => {
-                    props.onCheck(todo.id);
-                  }}
-                />{" "}
-                <h4
-                  style={
-                    todo.isComplete ? { textDecoration: "line-through" } : {}
-                  }
-                  key={todo.id}
-                >
-                  {todo.text}
-                </h4>{" "}
-                <Button onClick={() => props.onDelete(todo)}>
-                  Delete Task
-                </Button>{" "}
-                <Button
-                  onClick={() => {
-                    updateEdit(todo);
-                  }}
-                >
-                  Edit Me
-                </Button>
-              </Group>
+              <Paper
+                my={15}
+                sx={{ backgroundColor: dark ? "#FCC2D7" : "#32a852" }}
+              >
+                <Group>
+                  <Checkbox
+                    id={todo.id}
+                    onClick={() => {
+                      props.onCheck(todo.id);
+                    }}
+                  />{" "}
+                  <h4
+                    style={
+                      todo.isComplete ? { textDecoration: "line-through" } : {}
+                    }
+                    key={todo.id}
+                  >
+                    {todo.text}
+                  </h4>{" "}
+                  <Button onClick={() => props.onDelete(todo)}>
+                    Delete Task
+                  </Button>{" "}
+                  <Button
+                    onClick={() => {
+                      updateEdit(todo);
+                    }}
+                  >
+                    Edit Me
+                  </Button>
+                </Group>
+              </Paper>
             )}
           </>
         );

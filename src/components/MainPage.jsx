@@ -4,10 +4,10 @@ import { IconSun, IconMoonStars } from "@tabler/Icons";
 import TodoCard from "./TodoCard";
 import TodoList from "./TodoList";
 
-const [colorScheme, toggleColorScheme] = useMantineColorScheme();
-const dark = colorScheme === "dark";
-
 const MainPage = () => {
+  const { colorScheme, toggleColorScheme } = useMantineColorScheme();
+  const [dark, setDark] = useState(colorScheme === "dark");
+
   const [todos, setTodos] = useState([]);
 
   const deleteTodo = (todo) => {
@@ -47,8 +47,8 @@ const MainPage = () => {
       <ActionIcon
         onClick={() => {
           toggleColorScheme();
-          title = "Toggle color scheme";
         }}
+        title="Change Mode"
       >
         {dark ? <IconSun size={18} /> : <IconMoonStars size={18} />}
       </ActionIcon>

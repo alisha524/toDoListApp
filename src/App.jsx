@@ -5,22 +5,20 @@ import MainPage from "./components/MainPage";
 import { MantineProvider, Container } from "@mantine/core";
 
 function App() {
-  const [colorScheme, setColorScheme] = useState("light");
+  const [colorScheme, setColorScheme] = useState("dark");
   const toggleColorScheme = (value) =>
     setColorScheme(value || (colorScheme === "dark" ? "light" : "dark"));
   return (
-    <div>
-      <ColorSchemeProvider
-        colorScheme={colorScheme}
-        toggleColorScheme={toggleColorScheme}
-      >
-        <MantineProvider theme={{ colorScheme }} withNormalizeCSS>
-          <Container>
-            <MainPage />
-          </Container>
-        </MantineProvider>
-      </ColorSchemeProvider>
-    </div>
+    <ColorSchemeProvider
+      colorScheme={colorScheme}
+      toggleColorScheme={toggleColorScheme}
+    >
+      <MantineProvider theme={{ colorScheme }} withNormalizeCSS>
+        <Container>
+          <MainPage />
+        </Container>
+      </MantineProvider>
+    </ColorSchemeProvider>
   );
 }
 export default App;
