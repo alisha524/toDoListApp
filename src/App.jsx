@@ -1,11 +1,11 @@
 import React from "react";
 import { useState } from "react";
-import { ColorSchemeProvider, ColorScheme } from "@mantine/core";
+import { ColorSchemeProvider } from "@mantine/core";
 import MainPage from "./components/MainPage";
 import { MantineProvider, Container } from "@mantine/core";
 
 function App() {
-  const [colorScheme, setColorScheme] = useState < ColorScheme > "light";
+  const [colorScheme, setColorScheme] = useState("light");
   const toggleColorScheme = (value) =>
     setColorScheme(value || (colorScheme === "dark" ? "light" : "dark"));
   return (
@@ -14,11 +14,7 @@ function App() {
         colorScheme={colorScheme}
         toggleColorScheme={toggleColorScheme}
       >
-        <MantineProvider
-          theme={{ colorScheme }}
-          withGlobalStyles
-          withNormalizeCSS
-        >
+        <MantineProvider theme={{ colorScheme }} withNormalizeCSS>
           <Container>
             <MainPage />
           </Container>
